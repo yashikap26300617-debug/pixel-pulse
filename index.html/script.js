@@ -1,16 +1,50 @@
-const searchInput = document.querySelector("#searchInput");
-const searchButton = document.querySelector("#searchButton");
-const results = document.querySelector("#results");
+const form = document.getElementById("searchForm");
+const input = document.getElementById("searchInput");
+const results = document.getElementById("results");
+const resultCount = document.getElementById("resultCount");
 
-searchButton.addEventListener("click", function () {
-    const searchTerm = searchInput.value;
+form.addEventListener("submit", async function (event) {
 
-    console.log(searchTerm);
-});
-const image = document.getElementById('myImage');
+    event.preventDefault();
 
-// Add a click event listener
-image.addEventListener('click', function() {
-    // Redirect to the URL
-    window.location.href = 'https://pixabay.com/photos/flag-sea-turkey-kusadasi-fisherman-1244649';
+    const query = input.value.trim();
+
+    if (query === "") {
+        return;
+    }
+
+    const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(query)}&gsrnamespace=6&gsrlimit=12&prop=imageinfo&iiprop=url&iiurlwidth=300&format=json&origin=*`;
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+        return;
+    }
+
+    const data = await response.json();
+
+    results.innerHTML = "";
+
+    const pages = Object.values(data.query?.pages || {});
+
+    resultCount.textContent =
+        `Showing ${pages.length} results for "${query}"`;
+
+    pages.forEach(function (page) {
+
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const img = document.createElement("img");
+        img.src = page.imageinfo[0].thumburl;
+        img.alt = page.title;
+
+        const title = document.createElement("p");
+        title.textContent = page.title.replace("File:", "");
+
+        card.appendChild(img);
+        card.appendChild(title);
+
+        results.appendChild(card);
+    });
 });
