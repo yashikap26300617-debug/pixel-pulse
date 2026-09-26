@@ -2,12 +2,13 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 0;
-    padding: 40px;
-    background: #f5f5f5;
+    padding: 20px;
+    background:rgb(130, 103, 103);
+
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 80px;
 }
 
 .search-box {
@@ -15,6 +16,8 @@ h1 {
     justify-content: center;
     gap: 10px;
     margin-bottom: 30px;
+    font-size:30px;
+    font-family: fantasy;
 }
 
 input {
@@ -29,11 +32,6 @@ button {
     cursor: pointer;
 }
 
-.results-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-}
 
 .results-grid img {
     width: 100%;

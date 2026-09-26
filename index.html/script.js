@@ -7,3 +7,10 @@ searchButton.addEventListener("click", function () {
 
     console.log(searchTerm);
 });
+const image = document.getElementById('myImage');
+
+// Add a click event listener
+image.addEventListener('click', function() {
+    // Redirect to the URL
+    window.location.href = 'https://pixabay.com/photos/flag-sea-turkey-kusadasi-fisherman-1244649';
+});
